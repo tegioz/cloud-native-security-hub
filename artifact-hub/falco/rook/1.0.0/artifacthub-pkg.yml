@@ -1,0 +1,89 @@
+# Artifact Hub package metadata file
+# Please see https://github.com/artifacthub/hub/blob/master/docs/metadata/artifacthub-pkg.yml for more information
+
+version: 1.0.0
+name: rook
+displayName: Rook
+createdAt: 2019-11-19T00:00:00Z
+description: Falco rules for securing Rook
+logoPath: ../logo.png
+license: Apache-2.0
+homeURL: https://github.com/falcosecurity/cloud-native-security-hub
+keywords:
+  - falco
+  - security
+  - storage
+links:
+  - name: Source
+    url: https://github.com/falcosecurity/cloud-native-security-hub/blob/master/resources/falco/rook.yaml
+readme: |
+  # Rook Falco Rules
+
+  Rook turns distributed storage systems into self-managing, self-scaling, self-healing storage services. It automates the tasks of a storage administrator: deployment, bootstrapping, configuration, provisioning, scaling, upgrading, migration, disaster recovery, monitoring, and resource management.
+
+  ## Unexpected spawned process Rook
+
+  Detects an unexpected process spawned in the rook container
+
+  Allowed processes:
+
+  * /bin/sh
+  * /sbin/ldconfig.real
+  * /tini
+  * /usr/bin/python2.7
+  * /usr/local/bin/rook
+  * ceph
+  * ldconfig
+  * ldconfig.real
+  * rook
+
+  ## Unexpected file read by Rook
+
+  Detects an attempt to access a file readonly other than below an espected list of paths
+
+  Allowed file prefixes for readonly:
+
+  * /
+
+  ## Unexpected file written by Rook
+
+  Detects an attempt to access a file readwrite other than below an espected list of paths
+
+  Allowed file prefixes for readwrite:
+
+  * /dev
+  * /tmp
+
+  ## Unexpected system calls in Rook container
+
+  Detects an unexpected system call executed in rook container
+
+  Allowed system calls:
+
+  * clone
+  * connect
+  * dup
+  * execve
+  * getegid
+  * geteuid
+  * getgid
+  * getrlimit
+  * getuid
+  * open
+  * openat
+  * pipe
+  * procexit
+  * sendmsg
+  * socket
+  * unlinkat
+install: |
+  ## Install using Helm
+
+  ```
+  helm upgrade falco -f https://api.securityhub.dev/resources/falco-rules/rook/custom-rules.yaml stable/falco
+  ```
+maintainers:
+  - name: nestorsalceda
+  - name: fedebarcelona
+provider:
+  name: Rook

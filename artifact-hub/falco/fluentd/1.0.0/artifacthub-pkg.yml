@@ -1,0 +1,66 @@
+# Artifact Hub package metadata file
+# Please see https://github.com/artifacthub/hub/blob/master/docs/metadata/artifacthub-pkg.yml for more information
+
+version: 1.0.0
+name: fluentd
+displayName: FluentD
+createdAt: 2019-11-19T00:00:00Z
+description: Falco rules for securing FluentD
+logoPath: ../logo.png
+license: Apache-2.0
+homeURL: https://github.com/falcosecurity/cloud-native-security-hub
+keywords:
+  - falco
+  - security
+  - logging
+links:
+  - name: Source
+    url: https://github.com/falcosecurity/cloud-native-security-hub/blob/master/resources/falco/fluentd.yaml
+readme: |
+  # FluentD Falco Rules
+
+  A distributed, reliable key-value store for the most critical data of a distributed system
+
+  ## Unauthorized inbound tcp connection fluentd
+
+  Detects inbound network connections to fluentd on unexpected ports
+
+  Allowed inbound ports:
+
+  * 31337
+
+  ## Unexpected spawned process fluentd
+
+  Detects an unexpected process spawned in the fluentd container
+
+  Allowed processes:
+
+  * /bin/sh
+  * /proc/self/exe
+  * /usr/bin/ruby2.1
+  * date
+  * expr
+  * fluentd
+  * grep
+  * run.sh
+  * sed
+  * stat
+
+  ## Unexpected file read or written by fluentd
+
+  Detects an attempt to access a file readwrite other than below an expected list of paths
+
+  Allowed file prefixes for readwrite:
+
+  * /var/log
+install: |
+  ## Install using Helm
+
+  ```
+  helm upgrade falco -f https://api.securityhub.dev/resources/falco-rules/fluentd/custom-rules.yaml stable/falco
+  ```
+maintainers:
+  - name: nestorsalceda
+  - name: fedebarcelona
+provider:
+  name: Treasure Data

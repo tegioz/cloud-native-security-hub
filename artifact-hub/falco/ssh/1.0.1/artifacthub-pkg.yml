@@ -1,0 +1,40 @@
+# Artifact Hub package metadata file
+# Please see https://github.com/artifacthub/hub/blob/master/docs/metadata/artifacthub-pkg.yml for more information
+
+version: 1.0.1
+name: ssh-connections
+displayName: SSH connections
+createdAt: 2020-01-20T00:00:00Z
+description: Falco rules for detecting SSH connections
+logoPath: ../logo.png
+license: Apache-2.0
+homeURL: https://github.com/falcosecurity/cloud-native-security-hub
+keywords:
+  - falco
+  - security
+  - ssh
+links:
+  - name: Source
+    url: https://github.com/falcosecurity/cloud-native-security-hub/blob/master/resources/falco/ssh.yaml
+readme: |
+  # Detecting SSH connections Falco Rules
+
+  A set of rules to detect SSH connections
+
+  ## Inbound SSH Connection
+
+  Detects inbound SSH connection
+
+  ## Outbound SSH Connection
+
+  Detects outbound SSH connection
+install: |
+  ## Install using Helm
+
+  ```
+  helm upgrade falco -f https://api.securityhub.dev/resources/falco-rules/ssh-connections/custom-rules.yaml stable/falco
+  ```
+maintainers:
+  - name: bencer
+provider:
+  name: Sysdig

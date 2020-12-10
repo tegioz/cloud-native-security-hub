@@ -1,0 +1,87 @@
+# Artifact Hub package metadata file
+# Please see https://github.com/artifacthub/hub/blob/master/docs/metadata/artifacthub-pkg.yml for more information
+
+version: 1.0.0
+name: etcd
+displayName: etcd
+createdAt: 2019-11-19T00:00:00Z
+description: Falco rules for securing etcd
+logoPath: ../logo.png
+license: Apache-2.0
+homeURL: https://github.com/falcosecurity/cloud-native-security-hub
+keywords:
+  - falco
+  - security
+  - database
+links:
+  - name: Source
+    url: https://github.com/falcosecurity/cloud-native-security-hub/blob/master/resources/falco/etcd.yaml
+readme: |
+  # etcd Falco Rules
+
+  A distributed, reliable key-value store for the most critical data of a distributed system
+
+  ## Unauthorized process opened an outbund connection
+
+  Detects if an unauthorized process is trying to open an outbound connection
+
+  Allowed processes:
+
+  * etcd
+
+  ## Unauthorized inbound tcp connection etcd
+
+  Detects inbound network connections to etcd on unexpected ports
+
+  Allowed inbound ports:
+
+  * 2380
+  * 4001
+  * 7001
+
+  ## Unexpected spawned process etcd
+
+  Detects an unexpected process spawned in the etcd container
+
+  Allowed processes:
+
+  * /usr/local/bin/etcd
+
+  ## Unexpected file read by etcd
+
+  Detects an attempt to access a file readonly other than below an espected list of paths
+
+  Allowed file prefixes for readonly:
+
+  * /proc/self
+  * /var/etcd/data/member
+
+  ## Unexpected file readwrite by etcd
+
+  Detects an attempt to access a file readonly other than below an expected list of paths
+
+  Allowed file prefixes for readwrite:
+
+  * /var/etcd/data/member
+
+  ## Unexpected system calls in etcd container
+
+  Detects an unexpected system call executed in etcd container
+
+  Allowed system calls:
+
+  * accept
+  * openat
+  * renameat
+  * unlinkat
+install: |
+  ## Install using Helm
+
+  ```
+  helm upgrade falco -f https://api.securityhub.dev/resources/falco-rules/etcd/custom-rules.yaml stable/falco
+  ```
+maintainers:
+  - name: nestorsalceda
+  - name: fedebarcelona
+provider:
+  name: CoreOS

@@ -1,0 +1,92 @@
+# Artifact Hub package metadata file
+# Please see https://github.com/artifacthub/hub/blob/master/docs/metadata/artifacthub-pkg.yml for more information
+
+version: 1.0.0
+name: php-fpm
+displayName: PHP-FPM
+createdAt: 2019-11-19T00:00:00Z
+description: Falco rules for securing PHP-FPM
+logoPath: ../logo.png
+license: Apache-2.0
+homeURL: https://github.com/falcosecurity/cloud-native-security-hub
+keywords:
+  - falco
+  - security
+  - php
+  - fpm
+links:
+  - name: Source
+    url: https://github.com/falcosecurity/cloud-native-security-hub/blob/master/resources/falco/php-fpm.yaml
+readme: |
+  # PHP-FPM Falco Rules
+
+  PHP-FPM (FastCGI Process Manager) is an alternative PHP FastCGI implementation with some additional features useful for sites of any size, especially busier sites.
+
+  These features include:
+  - Adaptive process spawning
+  - Basic statistics (ala Apache's mod_status)
+  - Advanced process management with graceful stop/start
+  - Ability to start workers with different uid/gid/chroot/environment and different php.ini (replaces safe_mode)
+  - Stdout & stderr logging
+  - Emergency restart in case of accidental opcode cache destruction
+  - Accelerated upload support
+  - Support for a "slowlog"
+  - Enhancements to FastCGI, such as fastcgi_finish_request() - a special function to finish request & flush all data while continuing to do something time-consuming (video converting, stats processing, etc.)
+
+  ... and much more.
+
+  ## Unexpected inbound connection php_fpm
+
+  Detects any inbound connection arriving at php_fpm
+
+  ## Unexpected inbound tcp connection php_fpm
+
+  Detects inbound traffic to php_fpm using tcp on a port outside of expected set
+
+  Allowed inbound ports:
+
+  * 80
+  * 443
+
+  ## Unexpected spawned process php_fpm
+
+  Detects a process started in a php_fpm container outside of an expected set
+
+  Allowed processes:
+
+  * /usr/bin/python2
+  * nginx
+  * nginx: master process /usr/sbin/nginx -g daemon off; error_log /dev/stderr info
+  * nginx: worker process
+  * php-fpm
+  * php-fpm: pool www
+
+  ## Unexpected file access readonly for php_fpm
+
+  Detects an attempt to access a file readonly other than below an expected list of directories
+
+  Allowed file prefixes for readonly:
+
+  * /dev
+  * /var/www/errors
+
+  ## Unexpected file access readwrite for php_fpm
+
+  Detects an attempt to access a file readwrite other than below an expected list of directories
+
+  Allowed file prefixes for readwrite:
+
+  * /dev
+  * /tmp
+  * /usr/local/var/log
+install: |
+  ## Install using Helm
+
+  ```
+  helm upgrade falco -f https://api.securityhub.dev/resources/falco-rules/php-fpm/custom-rules.yaml stable/falco
+  ```
+maintainers:
+  - name: nestorsalceda
+  - name: fedebarcelona
+provider:
+  name: PHP

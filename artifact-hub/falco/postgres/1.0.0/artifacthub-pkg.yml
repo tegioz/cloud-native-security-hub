@@ -1,0 +1,80 @@
+# Artifact Hub package metadata file
+# Please see https://github.com/artifacthub/hub/blob/master/docs/metadata/artifacthub-pkg.yml for more information
+
+version: 1.0.0
+name: postgresql
+displayName: PostgreSQL
+createdAt: 2019-11-19T00:00:00Z
+description: Falco rules for securing PostgreSQL
+logoPath: ../logo.png
+license: Apache-2.0
+homeURL: https://github.com/falcosecurity/cloud-native-security-hub
+keywords:
+  - falco
+  - security
+  - database
+links:
+  - name: Source
+    url: https://github.com/falcosecurity/cloud-native-security-hub/blob/master/resources/falco/postgres.yaml
+readme: |
+  # PostgreSQL Falco Rules
+
+  ## Unexpected inbound tcp connection postgres
+
+  Detects inbound network connections to postgres on unexpected ports
+
+  Allowed ports:
+
+  * 5432
+
+  ## Unexpected spawned process postgres
+
+  Detects an unexpected process spawned in the postgres container
+
+  Allowed processes:
+
+  * /proc/self/exe
+  * pg_isready
+  * postgres
+  * psql
+  * pg_ctl
+  * sh
+
+  ## Unexpected file read by postgres
+
+  Detects an attempt to access a file readonly other than below an espected list of paths
+
+  Allowed file prefixes for readonly:
+
+  * /dev
+  * /etc
+  * /lib/x86_64-linux-gnu
+  * /usr/lib/locale
+  * /usr/lib/x86_64-linux-gnu
+  * /usr/share/locale
+  * /var/lib/postgresql/data
+  * /usr/share/zoneinfo
+  * /var/lib/postgresql
+  * /usr/lib/postgresql
+  * /usr/share/postgresql
+  * /var/run/postgresql
+
+  ## Unexpected file written by postgres
+
+  Detects an attempt to access a file readwrite other than below an espected list of paths
+
+  Allowed file prefixes for readwrite:
+
+  * /var/lib/postgresql/data
+  * /var/run/postgresql
+install: |
+  ## Install using Helm
+
+  ```
+  helm upgrade falco -f https://api.securityhub.dev/resources/falco-rules/postgresql/custom-rules.yaml stable/falco
+  ```
+maintainers:
+  - name: nestorsalceda
+  - name: fedebarcelona
+provider:
+  name: PostgreSQL

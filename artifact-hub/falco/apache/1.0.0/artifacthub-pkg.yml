@@ -1,0 +1,71 @@
+# Artifact Hub package metadata file
+# Please see https://github.com/artifacthub/hub/blob/master/docs/metadata/artifacthub-pkg.yml for more information
+
+version: 1.0.0
+name: apache
+displayName: Apache
+createdAt: 2019-11-19T00:00:00Z
+description: Falco rules for securing Apache HTTP Server
+logoPath: ../logo.png
+license: Apache-2.0
+homeURL: https://github.com/falcosecurity/cloud-native-security-hub
+keywords:
+  - falco
+  - security
+  - http server
+links:
+  - name: Source
+    url: https://github.com/falcosecurity/cloud-native-security-hub/blob/master/resources/falco/apache.yaml
+readme: |
+  # Apache Falco Rules
+
+  The Apache HTTP Server, colloquially called Apache (/əˈpætʃi/ ə-PATCH-ee),
+  is free and open-source cross-platform web server software, released under the
+  terms of Apache License 2.0. Apache is developed and maintained by an open community
+  of developers under the auspices of the Apache Software Foundation.
+
+  ## Unexpected inbound TCP connection apache
+
+  Detects inbound traffic to apache using tcp on a port outside of expected set
+
+  Allowed inbound ports:
+
+  * 80
+  * 443
+
+  ## Unexpected spawned process apache
+
+  Detects a process started in a apache container outside of an expected set
+
+  Allowed processes:
+  * apache2
+  * basename
+  * grep
+  * app-entrypoint.
+  * node
+  * sleep
+  * dirname
+  * httpd
+  * nami
+  * sh
+  * tini
+
+  ## Unexpected file access readwrite for apache
+
+  Detects an attempt to access a file readwrite other than below an expected list of directories
+
+  Allowed file prefixes for readwrite:
+  * /opt
+  * /tmp
+  * /dev/null
+install: |
+  ## Install using Helm
+
+  ```
+  helm upgrade falco -f https://api.securityhub.dev/resources/falco-rules/apache/custom-rules.yaml stable/falco
+  ```
+maintainers:
+  - name: nestorsalceda
+  - name: fedebarcelona
+provider:
+  name: Apache

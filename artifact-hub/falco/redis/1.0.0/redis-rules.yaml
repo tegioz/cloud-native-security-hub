@@ -1,0 +1,50 @@
+- macro: redis_consider_syscalls
+  condition: (evt.num < 0)
+
+- macro: app_redis
+  condition: container and container.image contains "redis"
+
+- list: redis_allowed_inbound_ports_tcp
+  items: [6379]
+
+- rule: Unexpected inbound tcp connection redis
+  desc: Detect inbound traffic to redis using tcp on a port outside of expected set
+  condition: inbound and evt.rawres >= 0 and not fd.sport in (redis_allowed_inbound_ports_tcp) and app_redis
+  output: Inbound network connection to redis on unexpected port (command=%proc.cmdline pid=%proc.pid connection=%fd.name sport=%fd.sport user=%user.name %container.info image=%container.image)
+  priority: NOTICE
+
+# Restricting spawned processes to selected set
+
+- list: redis_allowed_processes
+  items:
+    [
+      "redis-server",
+      "app-entrypoint.",
+      "basename",
+      "dirname",
+      "grep",
+      "nami",
+      "node",
+      "redis-cli",
+      "tini",
+      "run.sh",
+      "sed",
+      "which",
+    ]
+
+- rule: Unexpected spawned process redis
+  desc: Detect a process started in a redis container outside of an expected set
+  condition: spawned_process and not proc.name in (redis_allowed_processes) and app_redis
+  output: Unexpected process spawned in redis container (command=%proc.cmdline pid=%proc.pid user=%user.name %container.info image=%container.image)
+  priority: NOTICE
+
+# Restricting files read or written to specific set
+
+- list: redis_allowed_file_prefixes_readwrite
+  items: ["/data", "/opt", "/tmp"]
+
+- rule: Unexpected file access readwrite for redis
+  desc: Detect an attempt to access a file readwrite other than below an expected list of directories
+  condition: (open_write) and not fd.name pmatch (redis_allowed_file_prefixes_readwrite) and app_redis
+  output: Unexpected file accessed readwrite for redis (command=%proc.cmdline pid=%proc.pid file=%fd.name %container.info image=%container.image)
+  priority: NOTICE

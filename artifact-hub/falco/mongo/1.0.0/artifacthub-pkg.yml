@@ -1,0 +1,85 @@
+# Artifact Hub package metadata file
+# Please see https://github.com/artifacthub/hub/blob/master/docs/metadata/artifacthub-pkg.yml for more information
+
+version: 1.0.0
+name: mongodb
+displayName: MongoDB
+createdAt: 2019-11-19T00:00:00Z
+description: Falco rules for securing MongoDB
+logoPath: ../logo.png
+license: Apache-2.0
+homeURL: https://github.com/falcosecurity/cloud-native-security-hub
+keywords:
+  - falco
+  - security
+  - database
+  - mongodb
+  - mongo
+links:
+  - name: Source
+    url: https://github.com/falcosecurity/cloud-native-security-hub/blob/master/resources/falco/mongo.yaml
+readme: |
+  # MongoDB Falco Rules
+
+  MongoDB is a free and open-source cross-platform document-oriented database program.
+  Classified as a NoSQL database program, MongoDB uses JSON-like documents with schemas.
+  MongoDB is developed by MongoDB Inc., and is published under a combination of the GNU
+  Affero General Public License and the Apache
+
+  ## Unexpected inbound tcp connection mongo
+
+  Detects an inbound network connection to mongo on an unexpected port
+
+  Allowed ports:
+
+  * 27017
+
+  ## Unexpected spawned process mongo
+
+  Detects an unexpected process spawned in the mongo container
+
+  Allowed processes:
+
+  * mongod
+  * mongo
+  * ftdc
+  * WTCheck.tThread
+  * app-entrypoint
+  * basename
+  * dirname
+  * getent
+  * gosu
+  * grep
+  * groupadd
+  * nami
+  * node
+  * run.sh
+  * sed
+  * sh
+  * sleep
+  * tini
+  * useradd
+  * which
+
+  ## Unexpected file access readwrite for mongo
+
+  Detects an unexpected file accessed in readwrite mode for mongo
+
+  Allowed file prefixes for readwrite:
+
+  * /data/db
+  * /etc
+  * /opt
+  * /tmp
+  * /root/.nami
+install: |
+  ## Install using Helm
+
+  ```
+  helm upgrade falco -f https://api.securityhub.dev/resources/falco-rules/mongodb/custom-rules.yaml stable/falco
+  ```
+maintainers:
+  - name: nestorsalceda
+  - name: fedebarcelona
+provider:
+  name: MongoDB

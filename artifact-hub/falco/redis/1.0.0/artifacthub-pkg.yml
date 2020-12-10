@@ -1,0 +1,68 @@
+# Artifact Hub package metadata file
+# Please see https://github.com/artifacthub/hub/blob/master/docs/metadata/artifacthub-pkg.yml for more information
+
+version: 1.0.0
+name: redis
+displayName: Redis
+createdAt: 2019-11-19T00:00:00Z
+description: Falco rules for securing Redis
+logoPath: ../logo.png
+license: Apache-2.0
+homeURL: https://github.com/falcosecurity/cloud-native-security-hub
+keywords:
+  - falco
+  - security
+  - database
+links:
+  - name: Source
+    url: https://github.com/falcosecurity/cloud-native-security-hub/blob/master/resources/falco/redis.yaml
+readme: |
+  # Redis Falco Rules
+
+  ## Unexpected inbound tcp connection redis
+
+  Detects inbound network connections to redis on unexpected ports
+
+  Allowed ports:
+
+  * 6379
+
+  ## Unexpected spawned process redis
+
+  Detects an unexpected process spawned in the redis container
+
+  Allowed processes:
+
+  * redis-server
+  * app-entrypoint.
+  * basename
+  * dirname
+  * grep
+  * nami
+  * node
+  * redis-cli
+  * tini
+  * run.sh
+  * sed
+  * which
+
+  ## Unexpected file written by redis
+
+  Detects an attempt to access a file readwrite other than below an espected list of paths
+
+  Allowed file prefixes for readwrite:
+
+  * /data
+  * /opt
+  * /tmp
+install: |
+  ## Install using Helm
+
+  ```
+  helm upgrade falco -f https://api.securityhub.dev/resources/falco-rules/redis/custom-rules.yaml stable/falco
+  ```
+maintainers:
+  - name: nestorsalceda
+  - name: fedebarcelona
+provider:
+  name: Redis Labs

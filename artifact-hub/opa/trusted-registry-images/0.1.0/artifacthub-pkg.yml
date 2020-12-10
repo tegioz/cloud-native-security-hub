@@ -1,0 +1,28 @@
+# Artifact Hub package metadata file
+# Please see https://github.com/artifacthub/hub/blob/master/docs/metadata/artifacthub-pkg.yml for more information
+
+version: 0.1.0
+name: trusted-registry-images
+displayName: Trusted Registry Images
+createdAt: 2020-01-17T00:00:00Z
+description: Open Policy Agent policy for running only images from a trusted repository
+logoPath: ../logo.png
+license: Apache-2.0
+homeURL: https://github.com/falcosecurity/cloud-native-security-hub
+keywords:
+  - opa
+  - kubernetes
+links:
+  - name: Source
+    url: https://github.com/falcosecurity/cloud-native-security-hub/blob/master/resources/openpolicyagent/trusted_registry_images_policy.yaml
+readme: |
+  # Trusted Registry Images
+
+  This is an Open Policy Agent policy which ensures that all images that are
+  going to be run in a cluster comes from a trusted registry.
+
+  All images must come from `docker.io` registry.
+maintainers:
+  - name: Néstor Salceda
+provider:
+  name: Kubernetes

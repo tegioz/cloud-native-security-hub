@@ -1,0 +1,76 @@
+# Artifact Hub package metadata file
+# Please see https://github.com/artifacthub/hub/blob/master/docs/metadata/artifacthub-pkg.yml for more information
+
+version: 1.0.1
+name: gke
+displayName: GKE
+createdAt: 2019-12-10T00:00:00Z
+description: Falco rules for securing Google Kubernetes Engine
+logoPath: ../logo.png
+license: Apache-2.0
+homeURL: https://github.com/falcosecurity/cloud-native-security-hub
+keywords:
+  - falco
+  - security
+  - kubernetes
+  - gke
+  - google cloud
+links:
+  - name: Source
+    url: https://github.com/falcosecurity/cloud-native-security-hub/blob/master/resources/falco/gke.yaml
+readme: |
+  # GKE Falco Rules
+
+  Google Kubernetes Engine (GKE) is a managed, production-ready environment for deploying containerized applications. It brings our latest innovations in developer productivity, resource efficiency, automated operations, and open source flexibility to accelerate your time to market.
+
+  Launched in 2015, Kubernetes Engine builds on Google's experience of running services like Gmail and YouTube in containers for over 12 years. Kubernetes Engine allows you to get up and running with Kubernetes in no time, by completely eliminating the need to install, manage, and operate your own Kubernetes clusters.
+
+  ## Unexpected inbound TCP connections
+
+  Detects inbound traffic to GKE components on a port outside of expected set
+
+  Allowed inbound ports:
+  * 8080 TCP (defaultbackend container)
+  * 80 TCP (event_exporter container)
+  * 10248, 10249, 10250, 10255, 4194, 443, 8080 TCP (hyperkube container)
+  * 53 TCP/UDP (k8s_dns container)
+
+  ## Unexpected spawned processes
+
+  Detects a process started in GKE cluster outside of an expected set
+
+  Allowed processes:
+  * /server (defaultbackend container)
+  * /event-exporter (event_exporter container)
+  * For hyperkube container:
+    * /bin/bash
+    * /bin/findmnt
+    * /hyperkube
+    * findmnt
+    * iptables
+    * iptables-restore
+    * iptables-save
+    * journalctl
+    * nsenter
+    * sleep
+  * For k8s_dns:
+    * /dnsmasq-nanny
+    * /usr/sbin/dnsmasq
+    * dnsmasq
+
+  ## Unexpected file access
+
+  Detects an attempt to access a file other than an expected list of directories
+
+  * /event-exporter (event_exporter container)
+  * Read-write outside /dev, /proc, /var/lib/kubelet/pods (hyperkube)
+  * Read outside /etc/k8s/dns or write outside /dev (k8s_dns)
+maintainers:
+  - name: nestorsalceda
+  - name: airadier
+install: |
+  ## Install using Helm
+
+  ```
+  helm upgrade falco -f https://api.securityhub.dev/resources/falco-rules/gke/custom-rules.yaml stable/falco
+  ```

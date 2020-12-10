@@ -1,0 +1,101 @@
+# Artifact Hub package metadata file
+# Please see https://github.com/artifacthub/hub/blob/master/docs/metadata/artifacthub-pkg.yml for more information
+
+version: 1.0.0
+name: elasticsearch
+displayName: ElasticSearch
+createdAt: 2019-11-19T00:00:00Z
+description: Falco rules for securing ElasticSearch
+logoPath: ../logo.svg
+license: Apache-2.0
+homeURL: https://github.com/falcosecurity/cloud-native-security-hub
+keywords:
+  - falco
+  - security
+  - database
+links:
+  - name: Source
+    url: https://github.com/falcosecurity/cloud-native-security-hub/blob/master/resources/falco/elasticsearch.yaml
+readme: |
+  # ElasticSearch Falco Rules
+
+  Elasticsearch is a distributed, RESTful search and analytics engine capable of addressing a growing number of use cases. As the heart of the Elastic Stack, it centrally stores your data so you can discover the expected and uncover the unexpected.
+
+  ## Unexpected inbound tcp connection elasticsearch
+
+  Detects inbound network connections to elasticsearch on unexpected ports
+
+  Allowed ports:
+
+  * 37125
+  * 37385
+  * 40689
+  * 41503
+  * 44173
+  * 9200
+  * 9300
+
+  ## Unexpected spawned process elasticsearch
+
+  Detects an unexpected process spawned in the elasticsearch container
+
+  Allowed processes:
+
+  * /bin/bash
+  * /bin/sh
+  * /proc/self/exe
+  * /sbin/ldconfig
+  * /usr/lib/jvm/jre-1.8.0-openjdk/bin/java
+  * /usr/share/elasticsearch/plugins/x-pack/platform/linux-x86_64/bin/controller"
+  * chown
+  * controller
+  * cut
+  * dirname
+  * egrep
+  * env
+  * grep
+  * hostname
+  * java
+  * ldconfig
+  * tr
+  * app-entrypoint
+  * basename
+  * getent
+  * groupadd
+  * nami
+  * node
+  * sysctl
+  * useradd
+  * sleep
+  * elasticsearch
+  * elasticsearch-p
+  * id
+  * ldconfig.real
+  * mktemp
+  * ps
+  * sh
+  * su
+  * tini
+
+  ## Unexpected file access readwrite for elasticsearch
+
+  Detects an unexpected file accessed in readwrite mode for elasticsearch
+
+  Allowed file prefixes for readwrite:
+
+  * /dev
+  * /tmp
+  * /usr/share/elasticsearch
+  * /etc
+  * /opt
+install: |
+  ## Install using Helm
+
+  ```
+  helm upgrade falco -f https://api.securityhub.dev/resources/falco-rules/elasticsearch/custom-rules.yaml stable/falco
+  ```
+maintainers:
+  - name: nestorsalceda
+  - name: fedebarcelona
+provider:
+  name: Elastic

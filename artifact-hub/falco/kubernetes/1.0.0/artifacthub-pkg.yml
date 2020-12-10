@@ -1,0 +1,63 @@
+# Artifact Hub package metadata file
+# Please see https://github.com/artifacthub/hub/blob/master/docs/metadata/artifacthub-pkg.yml for more information
+
+version: 1.0.0
+name: kubernetes
+displayName: Kubernetes
+createdAt: 2019-11-19T00:00:00Z
+description: Falco rules for securing Kubernetes clusters
+logoPath: ../logo.png
+license: Apache-2.0
+homeURL: https://github.com/falcosecurity/cloud-native-security-hub
+keywords:
+  - falco
+  - security
+  - kubernetes
+  - k8s
+links:
+  - name: Source
+    url: https://github.com/falcosecurity/cloud-native-security-hub/blob/master/resources/falco/kubernetes.yaml
+readme: |
+  # Kubernetes Falco Rules
+
+  Kubernetes (commonly stylized as k8s) is an open-source container-orchestration system for automating application deployment, scaling, and management.
+
+  ## Unexpected inbound TCP connections
+
+  Detects inbound traffic to Kubernetes components using tcp on a port outside of expected set
+
+  Allowed inbound ports:
+  * 6443 (kube-apiserver container)
+  * 10252 (kube-controller container)
+  * 8443 (kube-dashboard container)
+  * 10053, 10055, 8081 (kube-dns container)
+  * 10251 (kube-scheduler container)
+
+  ## Unexpected spawned processes
+
+  Detects a process started in a kubernetes cluster outside of an expected set
+
+  Allowed processes:
+  * kube-apiserver (for kube-apiserver container)
+  * kube-controller-manager (for kube-controller container)
+  * /dashboard (kube-dashboard container)
+  * /kube-dns (kube-dns container)
+  * kube-scheduler (kube-scheduler container)
+
+  ## Unexpected file access readonly
+
+  Detects an attempt to access a file readonly other than below an expected list of directories
+
+  Allowed file prefixes for readonly:
+  * /public
+install: |
+  ## Install using Helm
+
+  ```
+  helm upgrade falco -f https://api.securityhub.dev/resources/falco-rules/kubernetes/custom-rules.yaml stable/falco
+  ```
+maintainers:
+  - name: nestorsalceda
+  - name: airadier
+provider:
+  name: Kubernetes

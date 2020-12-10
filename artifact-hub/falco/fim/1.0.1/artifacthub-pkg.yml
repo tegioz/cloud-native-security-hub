@@ -1,0 +1,59 @@
+# Artifact Hub package metadata file
+# Please see https://github.com/artifacthub/hub/blob/master/docs/metadata/artifacthub-pkg.yml for more information
+
+version: 1.0.1
+name: fim
+displayName: File integrity monitoring
+createdAt: 2020-01-20T00:00:00Z
+description: Falco rules for file integrity monitoring
+logoPath: ../logo.svg
+license: Apache-2.0
+homeURL: https://github.com/falcosecurity/cloud-native-security-hub
+keywords:
+  - falco
+  - security
+links:
+  - name: Source
+    url: https://github.com/falcosecurity/cloud-native-security-hub/blob/master/resources/falco/fim.yaml
+readme: |
+  # FIM - File integrity monitoring Falco Rules
+
+  A set of rules to detect changes in your filesystem
+
+  ## Detect New File
+
+  Detects when a new file is created
+
+  ## Detect New Directory
+
+  Detects when a new directory is created
+
+  ## Detect File Permission or Ownership Change
+
+  Detects file permissions or ownership change
+
+  ## Detect Directory Change
+
+  Detects directory changes includir mkdir, rmdir, mvdir, mv
+
+  ## Kernel Module Modification
+
+  Detects kernel modules changes via modprobe or insmod
+
+  ## Node Created in Filesystem
+
+  Detects a node created via mknod
+
+  ## Listen on a New Port
+
+  Detects a new port is listening
+install: |
+  ## Install using Helm
+
+  ```
+  helm upgrade falco -f https://api.securityhub.dev/resources/falco-rules/file-integrity-monitoring/custom-rules.yaml stable/falco
+  ```
+maintainers:
+  - name: bencer
+provider:
+  name: Sysdig

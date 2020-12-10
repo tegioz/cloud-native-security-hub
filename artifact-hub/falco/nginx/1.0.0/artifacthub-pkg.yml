@@ -1,0 +1,96 @@
+# Artifact Hub package metadata file
+# Please see https://github.com/artifacthub/hub/blob/master/docs/metadata/artifacthub-pkg.yml for more information
+
+version: 1.0.0
+name: nginx
+displayName: Nginx
+createdAt: 2019-11-19T00:00:00Z
+description: Falco rules for securing Nginx
+logoPath: ../logo.png
+license: Apache-2.0
+homeURL: https://github.com/falcosecurity/cloud-native-security-hub
+keywords:
+  - falco
+  - security
+  - http server
+  - proxy
+  - load balancer
+links:
+  - name: Source
+    url: https://github.com/falcosecurity/cloud-native-security-hub/blob/master/resources/falco/nginx.yaml
+readme: |
+  # Nginx Falco Rules
+
+  Nginx is a web server which can also be used as a reverse proxy, load balancer, mail proxy and HTTP cache.
+
+  ## Unauthorized process opened an outbund connection
+
+  Detects if nginx is trying to open an outbound connection
+
+  ## Unauthorized inbound tcp connection nginx
+
+  Detects inbound network connections to nginx on unexpected ports
+
+  Allowed ports:
+
+  * 80
+  * 443
+  * 8080
+  * 8443
+
+  ## Unexpected spawned process nginx
+
+  Detects an unexpected process spawned in the nginx container
+
+  Allowed processes:
+
+  * nginx
+  * app-entrypoint.
+  * basename
+  * dirname
+  * grep
+  * nami
+  * node
+  * tini
+
+  ## Unexpected file read or written by nginx
+
+  Detects an attempt to access a file readwrite other than below an espected list of paths
+
+  Allowed file prefixes for readwrite:
+
+  * /var/log/nginx
+  * /var/run
+
+  ## Unexpected system calls in nginx container
+
+  Detects an unexpected system call executed in nginx container
+
+  Allowed system calls:
+
+  * accept
+  * bind
+  * clone
+  * connect
+  * dup
+  * listen
+  * mkdir
+  * open
+  * recvfrom
+  * recvmsg
+  * sendto
+  * setgid
+  * setuid
+  * socket
+  * socketpair
+install: |
+  ## Install using Helm
+
+  ```
+  helm upgrade falco -f https://api.securityhub.dev/resources/falco-rules/nginx/custom-rules.yaml stable/falco
+  ```
+maintainers:
+  - name: nestorsalceda
+  - name: fedebarcelona
+provider:
+  name: Nginx

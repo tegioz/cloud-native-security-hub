@@ -1,0 +1,95 @@
+# Artifact Hub package metadata file
+# Please see https://github.com/artifacthub/hub/blob/master/docs/metadata/artifacthub-pkg.yml for more information
+
+version: 1.0.1
+name: consul
+displayName: Consul
+createdAt: 2019-12-10T00:00:00Z
+description: Falco rules for securing Consul
+logoPath: ../logo.svg
+license: Apache-2.0
+homeURL: https://github.com/falcosecurity/cloud-native-security-hub
+keywords:
+  - falco
+  - security
+  - database
+  - dns
+links:
+  - name: Source
+    url: https://github.com/falcosecurity/cloud-native-security-hub/blob/master/resources/falco/consul.yaml
+readme: |
+  # Consul Falco Rules
+
+  Consul is a service networking solution to connect and secure services across any runtime platform and public or private cloud
+
+  ## Unexpected inbound tcp connection consul
+
+  Detects inbound network connections to consul on unexpected ports
+
+  Allowed inbound ports:
+
+  * 8300
+  * 8301
+  * 8302
+  * 8500
+  * 8600
+
+  ## Unexpected spawned process consul
+
+  Detects an unexpected process spawned in the consul container
+
+  Allowed processes:
+
+  * consul
+  * sh
+  * exe
+  * awk
+  * consul
+  * ping
+  * seq
+  * sleep
+
+  ## Unexpected system calls in consul container
+
+  Detects an unexpected system call executed in consul container
+
+  Allowed system calls:
+
+  * accept
+  * bind
+  * clone
+  * connect
+  * dup
+  * execve
+  * fork
+  * listen
+  * mkdirat
+  * open
+  * openat
+  * pipe
+  * procexit
+  * recvfrom
+  * recvmsg
+  * sendto
+  * socket
+  * unlinkat
+
+  ## Unexpected file access readwrite for apache
+
+  Detects an attempt to access a file readwrite other than below an expected list of directories
+
+  Allowed file prefixes for readwrite:
+
+  * /dev
+  * /var/lib/consul
+install: |
+  ## Install using Helm
+
+  ```
+  helm upgrade falco -f https://api.securityhub.dev/resources/falco-rules/consul/custom-rules.yaml stable/falco
+  ```
+maintainers:
+  - name: nestorsalceda
+  - name: fedebarcelona
+provider:
+  name: HashiCorp

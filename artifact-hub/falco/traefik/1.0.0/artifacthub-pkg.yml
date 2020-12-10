@@ -1,0 +1,52 @@
+# Artifact Hub package metadata file
+# Please see https://github.com/artifacthub/hub/blob/master/docs/metadata/artifacthub-pkg.yml for more information
+
+version: 1.0.0
+name: traefik
+displayName: Traefik
+createdAt: 2019-11-19T00:00:00Z
+description: Falco rules for securing Traefik
+logoPath: ../logo.svg
+license: Apache-2.0
+homeURL: https://github.com/falcosecurity/cloud-native-security-hub
+keywords:
+  - falco
+  - security
+  - load balancer
+  - proxy
+links:
+  - name: Source
+    url: https://github.com/falcosecurity/cloud-native-security-hub/blob/master/resources/falco/traefik.yaml
+readme: |
+  # Traefik Falco Rules
+
+  A reverse proxy / load balancer that's easy, dynamic, automatic, fast, full-featured, open source, production proven, provides metrics, and integrates with every major cluster technology... No wonder it's so popular!
+
+  ## Unauthorized inbound tcp connection traefik
+
+  Detects inbound network connections to traefik on unexpected ports
+
+  Allowed ports:
+
+  * 443
+  * 80
+  * 8080
+
+  ## Unexpected spawned process traefik
+
+  Detects an unexpected process spawned in the traefik container
+
+  Allowed processes:
+
+  * traefik
+install: |
+  ## Install using Helm
+
+  ```
+  helm upgrade falco -f https://api.securityhub.dev/resources/falco-rules/traefik/custom-rules.yaml stable/falco
+  ```
+maintainers:
+  - name: nestorsalceda
+  - name: fedebarcelona
+provider:
+  name: Traefik

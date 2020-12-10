@@ -1,0 +1,39 @@
+# Artifact Hub package metadata file
+# Please see https://github.com/artifacthub/hub/blob/master/docs/metadata/artifacthub-pkg.yml for more information
+
+version: 1.0.1
+name: admin-activities
+displayName: Admin activities
+createdAt: 2020-01-20T00:00:00Z
+description: Falco rules for detecting admin activities
+logoPath: ../logo.png
+license: Apache-2.0
+homeURL: https://github.com/falcosecurity/cloud-native-security-hub
+keywords:
+  - falco
+  - security
+links:
+  - name: Source
+    url: https://github.com/falcosecurity/cloud-native-security-hub/blob/master/resources/falco/admin.yaml
+readme: |
+  # Detecting admin activities Falco Rules
+
+  A set of rules to detect admin activities
+
+  ## Detect su or sudo
+
+  Detects su or sudo privilege escalation activity
+
+  ## Package Management Launched
+
+  Detects when a package management process is launched in a container
+install: |
+  ## Install using Helm
+
+  ```
+  helm upgrade falco -f https://api.securityhub.dev/resources/falco-rules/admin-activities/custom-rules.yaml stable/falco
+  ```
+maintainers:
+  - name: bencer
+provider:
+  name: Sysdig
